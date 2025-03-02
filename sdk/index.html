@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrackPointSDK Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    button {
+      margin: 10px 0;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>TrackPointSDK Demo</h1>
+  <p>点击以下按钮触发事件上报：</p>
+  <button id="clickButton">点击事件</button>
+  <button id="errorButton">触发错误</button>
+  <button id="whiteScreenButton">检测白屏</button>
+
+  <div class="result" id="result"></div>
+
+  <!-- 引入编译后的 SDK 文件（请先用 TypeScript 工具把 track-point-sdk.ts 编译为 track-point-sdk.js） -->
+  <script src="/dist/track-point-sdk.js"></script>
+
+  <script>
+    // 初始化 SDK（只实例化一次）
+    if (!window.trackPoint) {
+      window.trackPoint = window.TrackPointSDK.getInstance({
+        project_id: 'trackpoint_project_001',
+        upload_percent: 0.1,
+        batch_size: 5,
+        batch_wait_time: 3000,
+        max_retries: 3,
+      });
+    }
+
+    // 绑定按钮事件
+    document.getElementById('clickButton').addEventListener('click', function () {
+      window.trackPoint.sendEvent('CLICK_EVENT', {
+        button_id: 'button_1',
+        page_url: window.location.href,
+      });
+      document.getElementById('result').innerText = '点击事件已上报（将在批量发送时一起上报）';
+    });
+
+    document.getElementById('errorButton').addEventListener('click', function () {
+      try {
+        throw new Error('模拟错误');
+      } catch (error) {
+        window.trackPoint.captureError(error);
+        document.getElementById('result').innerText = '错误已捕获并上报';
+      }
+    });
+
+    document.getElementById('whiteScreenButton').addEventListener('click', function () {
+      document.getElementById('result').innerText = '白屏监控已启动，会在白屏超过 5s 时上报';
+      // 其实已经自动监控，无需手动触发，这里仅作示例
+    });
+  </script>
+</body>
+</html>

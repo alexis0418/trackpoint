@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "types": ["node"],   //解决Stay time data 始终为0问题进行的测试
+    "target": "ESNext", // 设置目标 JavaScript 版本
+    "module": "ESNext", // 设置模块系统
+    "moduleResolution": "node", // 使用 Node.js 的模块解析策略
+    "strict": true, // 开启严格模式
+    "jsx": "react-jsx", // 如果你使用 React，设置 JSX 处理方式
+    "esModuleInterop": true, // 允许 CommonJS 和 ES 模块的互操作
+    "skipLibCheck": true, // 跳过对第三方库的类型检查
+    "allowSyntheticDefaultImports": true, // 允许从非默认模块中导入默认值
+    "sourceMap": true, // 生成 source map
+    "resolveJsonModule": true, // 允许导入 JSON 文件
+    "lib": ["ESNext", "DOM"], // 指定使用的库
+    "baseUrl": ".", // 基础路径
+    "paths": {
+      "@/*": ["src/*"] // 如果你使用路径别名，可以在这里配置
+    },
+    "outDir": "./src", // 输出目录
+    "rootDir": "./src", // 源代码目录
+    "noImplicitAny": true, // 禁止隐式的 any 类型
+    "noImplicitThis": true, // 禁止隐式的 this
+    "noImplicitReturns": true, // 禁止隐式的返回值
+    "noUnusedLocals": true, // 禁止未使用的局部变量
+    "noUnusedParameters": true, // 禁止未使用的参数
+    "noFallthroughCasesInSwitch": true, // 禁止 switch 语句中遗漏 break
+    "noEmitOnError": true // 如果有错误，不生成输出文件
+  },
+  "include": ["src"], // 包含的文件夹
+  "exclude": ["node_modules", "dist"] // 排除的文件夹
+}
