@@ -1,0 +1,1 @@
+This is a buried data collection and analysis system based on Node.js, React and MongoDB, including a server-side API, a front-end data Kanban board and a buried SDK for collecting, storing, displaying and managing user behavior data.
